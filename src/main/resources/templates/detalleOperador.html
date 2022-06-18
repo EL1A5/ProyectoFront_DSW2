@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>SISTEMA DE SOLICITUDES</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+	content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+	name="description" />
+<meta content="Coderthemes" name="author" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- App favicon -->
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+<!-- App css -->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"
+	type="text/css" />
+<link th:href="@{/css/icons.min.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/app.min.css}" rel="stylesheet" type="text/css" />
+</head> 
+<body>
+	<!-- Begin page -->
+	<div id="wrapper">
+		<!-- Topbar Start -->
+		<div class="navbar-custom">
+			<ul class="list-unstyled topnav-menu float-right mb-0">
+				<li class="dropdown notification-list"><a
+					class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light"
+					data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+					aria-expanded="false"> <img
+						th:src="@{/images/users/avatar-1.jpg}" alt="user-image"
+						class="rounded-circle"> <span class="pro-user-name ml-1" sec:authentication="name">
+							 <i class="mdi mdi-chevron-down"></i>
+					</span>
+				</a>
+					<div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+						<!-- item-->
+						<div class="dropdown-header noti-title">
+							<h6 class="text-overflow m-0">Bienvenido !</h6>
+						</div>
+
+						<!-- item-->
+						<a href="javascript:void(0);" class="dropdown-item notify-item">
+							<i class="remixicon-account-circle-line"></i> <span>Mi
+								Perfil</span>
+						</a>
+
+						<div class="dropdown-divider"></div>
+
+						<!-- item-->
+						<a th:href="@{/logout}" class="dropdown-item notify-item"> <i
+							class="remixicon-logout-box-line"></i> <span>Logout</span>
+						</a>
+					</div></li>
+			</ul>
+			<!-- LOGO -->
+			<div class="logo-box">
+				<a href="index.html" class="logo text-center"> <span
+					class="logo-lg"> <img th:src="@{/images/logo-light.png}"
+						alt="" height="20"> <!-- <span class="logo-lg-text-light">Xeria</span> -->
+				</span> <span class="logo-sm"> <!-- <span class="logo-sm-text-dark">X</span> -->
+						<img th:src="@{/images/logo-sm2.png}" alt="" height="24">
+				</span>
+				</a>
+			</div>
+			<ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+				<li>
+					<button class="button-menu-mobile waves-effect waves-light">
+						<i class="fe-menu"></i>
+					</button>
+				</li>
+				<li class="dropdown d-none d-lg-block"></li>
+			</ul>
+		</div>
+		<!-- end Topbar -->
+
+		<!-- ========== Left Sidebar Start ========== -->
+		<div class="left-side-menu">
+			<div class="slimscroll-menu">
+				<!--- Sidemenu -->
+				<div id="sidebar-menu">
+					<ul class="metismenu" id="side-menu">
+						<li class="menu-title">Menu</li>
+						<li
+							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
+							<a th:href="@{/menu}" class="waves-effect"> <i
+								class="remixicon-vip-crown-2-line"></i> <span> Mis
+									Solicitudes</span>
+						</a>
+						</li>
+						<li
+							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
+							<a th:href="@{/regsolicitudes}" class="waves-effect"> <i
+								class="remixicon-vip-crown-2-line"></i> <span> Registro
+									Solicitud</span>
+						</a>
+						</li>
+						<li sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN')">
+							<a href="javascript: void(0);" class="waves-effect"> <i
+								class="remixicon-stack-line"></i> <span> Consultas </span> <span
+								class="menu-arrow"></span>
+						</a>
+							<ul class="nav-second-level" aria-expanded="false">
+								<li><a th:href="@{/repsolicitudes}">Solicitudes</a></li>
+								<li><a th:href="@{/repusuarios}">Usuarios</a></li>
+							</ul>
+						</li>
+
+						<li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a
+							href="javascript: void(0);" class="waves-effect"> <i
+								class="remixicon-stack-line"></i> <span> Configuracion </span> <span
+								class="menu-arrow"></span>
+						</a>
+							<ul class="nav-second-level" aria-expanded="false">
+								<li><a th:href="@{/configusuario}">Usuario</a></li>
+								<li><a th:href="@{/configcategoria}">Categoria</a></li>
+								<li><a th:href="@{/configaplicacion}">Aplicacion</a></li>
+							</ul></li>
+
+
+					</ul>
+				</div>
+				<!-- End Sidebar -->
+				<div class="clearfix"></div>
+			</div>
+			<!-- Sidebar -left -->
+		</div>
+		<!-- Left Sidebar End -->
+
+		<!-- ============================================================== -->
+		<!-- Start Page Content here -->
+		<!-- ============================================================== -->
+
+		<div class="content-page">
+			<div class="content">
+				<!-- Start Content-->
+				<div class="container-fluid">
+					<!-- start page title -->
+					<div class="row">
+						<div class="col-12">
+							<div class="page-title-box">
+								<h4 class="page-title">Detalle Solicitud</h4>
+							</div>
+						</div>
+					</div>
+					<!-- end page title -->
+				</div>
+				<!-- container -->
+
+				<div class="container-fluid">
+
+					<form th:action="@{/solicitudActualizar}" method="post" th:object="${solicitud}">
+
+						<div class="row">
+						<div class="col-md-4">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">Codigo</span>
+									</div>
+									<input type="text" th:field="*{codigo}" class="form-control" readonly="readonly">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">Tipo
+											Solicitud</span>
+									</div>
+									<input type="text" th:field="*{tipoSolicitud}" readonly="readonly" 
+										class="form-control">
+
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">Aplicacion</span>
+									</div>
+									<input type="text" th:field="*{aplicacion}" readonly="readonly" 
+										class="form-control">
+								</div>
+							</div>
+							
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">Categoria</span>
+									</div>
+									<input type="text" th:field="*{categoria}" class="form-control" readonly="readonly">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">Prioridad</span>
+									</div>
+									<input type="text" th:field="*{prioridad}" class="form-control" readonly="readonly">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">Estado</span>
+									</div>
+									<input type="text" th:field="*{estado}" class="form-control" readonly="readonly">
+								</div>
+							</div>
+
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">Fecha Registro</span>
+									</div>
+									<input type="text" th:field="*{fechaInicio}" class="form-control" readonly="readonly">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon1">Fecha Atencion</span>
+									</div>
+									<input type="text" th:field="*{fechaFin}" class="form-control" readonly="readonly"> 
+								</div>
+							</div>
+
+						</div>
+						
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="exampleFormControlTextarea1">Descripcion Solicitud </label>
+									<textarea class="form-control" id="descripcion" rows="3" readonly="readonly" 
+										th:field="*{solicitud}"></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="exampleFormControlTextarea1">Descripcion Atencion</label>
+									<textarea class="form-control" id="descripcion" rows="3" th:field="*{solucion}"></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<a th:href="@{/repsolicitudes}" class="btn btn-primary mr-2">Regresar</a>
+						<button th:if="${solicitud.estado}=='Registrado'" type="submit" class="btn btn-primary float-right mr-2" style="color: white;">Guardar</button>
+						
+					</form>
+				</div>
+			</div>
+			<!-- content -->
+
+			<!-- Footer Start -->
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-6">
+							2021 &copy; ERICK PARIONA YAURICASA <a href="#">CIBERTEC</a>
+						</div>
+					</div>
+				</div>
+			</footer>
+			<!-- end Footer -->
+		</div>
+		<!-- ============================================================== -->
+		<!-- End Page content -->
+		<!-- ============================================================== -->
+	</div>
+	<!-- Right bar overlay-->
+	<div class="rightbar-overlay"></div>
+	<!-- Vendor js -->
+	<script th:src="@{/js/vendor.min.js}"></script>
+	<!-- App js -->
+	<script th:src="@{/js/app.min.js}"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
+	<script th:src="@{/css/moment.min.js}"></script>
+	<link th:href="@{/css/daterangepicker.css}" rel="stylesheet"
+		type="text/css" />
+	<script th:src="@{/css/daterangepicker.js}"></script>
+	
+
+	<script>
+		var inicio;
+		var fin;
+
+		function fechaInicio() {
+			var date = new Date();
+			var year = date.getFullYear();
+			var mon = ("0" + String(date.getMonth() + 1)).slice(-2);
+			var day = ("0" + String(date.getDate())).slice(-2);
+			inicio = String(year) + "-" + String(mon) + "-01";
+			fin = String(year) + "-" + String(mon) + "-" + day;
+		}
+
+		$(function() {
+			fechaInicio();
+
+			$('#date_range').daterangepicker(
+					{
+						"locale" : {
+							"format" : "YYYY-MM-DD",
+							"separator" : " / ",
+							"applyLabel" : "Guardar",
+							"cancelLabel" : "Cancelar",
+							"fromLabel" : "Desde",
+							"toLabel" : "Hasta",
+							"customRangeLabel" : "Personalizar",
+							"daysOfWeek" : [ "Do", "Lu", "Ma", "Mi", "Ju",
+									"Vi", "Sa" ],
+							"monthNames" : [ "Enero", "Febrero", "Marzo",
+									"Abril", "Mayo", "Junio", "Julio",
+									"Agosto", "Setiembre", "Octubre",
+									"Noviembre", "Diciembre" ],
+							"firstDay" : 1
+						},
+						"startDate" : inicio,//"2016-01-01",
+						"endDate" : fin,//"2016-01-07",
+						"opens" : "center"
+					});
+		});
+	</script>
+
+
+
+
+
+
+
+</body>
+</html>

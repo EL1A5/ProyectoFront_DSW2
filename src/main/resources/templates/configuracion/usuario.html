@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>SISTEMA DE SOLICITUDES</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+	content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+	name="description" />
+<meta content="Coderthemes" name="author" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- App favicon -->
+<link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+<!-- App css -->
+<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"
+	type="text/css" />
+<link th:href="@{/css/icons.min.css}" rel="stylesheet" type="text/css" />
+<link th:href="@{/css/app.min.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>  
+	<!-- Begin page -->
+	<div id="wrapper">
+		<!-- Topbar Start -->
+		<div class="navbar-custom">
+			<ul class="list-unstyled topnav-menu float-right mb-0">
+				<li class="dropdown notification-list"><a
+					class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light"
+					data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+					aria-expanded="false"> <img
+						th:src="@{/images/users/avatar-1.jpg}" alt="user-image"
+						class="rounded-circle"> <span class="pro-user-name ml-1" sec:authentication="name"> 
+					    <i class="mdi mdi-chevron-down"></i>
+					</span>
+				</a>
+					<div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+						<!-- item-->
+						<div class="dropdown-header noti-title">
+							<h6 class="text-overflow m-0">Bienvenido !</h6>
+						</div>
+
+						<!-- item-->
+						<a href="javascript:void(0);" class="dropdown-item notify-item">
+							<i class="remixicon-account-circle-line"></i> <span>Mi
+								Perfil</span>
+						</a>
+
+						<div class="dropdown-divider"></div>
+
+						<!-- item-->
+						<a th:href="@{/logout}" class="dropdown-item notify-item"> <i
+							class="remixicon-logout-box-line"></i> <span>Logout</span>
+						</a>
+					</div></li>
+			</ul>
+			<!-- LOGO -->
+			<div class="logo-box">
+				<a href="index.html" class="logo text-center"> <span
+					class="logo-lg"> <img th:src="@{/images/logo-light.png}"
+						alt="" height="20"> <!-- <span class="logo-lg-text-light">Xeria</span> -->
+				</span> <span class="logo-sm"> <!-- <span class="logo-sm-text-dark">X</span> -->
+						<img th:src="@{/images/logo-sm2.png}" alt="" height="24">
+				</span>
+				</a>
+			</div>
+			<ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+				<li>
+					<button class="button-menu-mobile waves-effect waves-light">
+						<i class="fe-menu"></i>
+					</button>
+				</li>
+				<li class="dropdown d-none d-lg-block"></li>
+			</ul>
+		</div>
+		<!-- end Topbar -->
+
+		<!-- ========== Left Sidebar Start ========== -->
+		<div class="left-side-menu">
+			<div class="slimscroll-menu">
+				<!--- Sidemenu -->
+				<div id="sidebar-menu">
+					<ul class="metismenu" id="side-menu">
+						<li class="menu-title">Menu</li>
+						<li
+							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
+							<a th:href="@{/menu}" class="waves-effect"> <i
+								class="remixicon-vip-crown-2-line"></i> <span> Mis
+									Solicitudes</span>
+						</a>
+						</li>
+						<li
+							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
+							<a th:href="@{/regsolicitudes}" class="waves-effect"> <i
+								class="remixicon-vip-crown-2-line"></i> <span> Registro
+									Solicitud</span>
+						</a>
+						</li>
+						<li sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN')">
+							<a href="javascript: void(0);" class="waves-effect"> <i
+								class="remixicon-stack-line"></i> <span> Consultas </span> <span
+								class="menu-arrow"></span>
+						</a>
+							<ul class="nav-second-level" aria-expanded="false">
+								<li><a th:href="@{/repsolicitudes}">Solicitudes</a></li>
+								<li><a th:href="@{/repusuarios}">Usuarios</a></li>
+							</ul>
+						</li>
+
+						<li sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a
+							href="javascript: void(0);" class="waves-effect"> <i
+								class="remixicon-stack-line"></i> <span> Configuracion </span> <span
+								class="menu-arrow"></span>
+						</a>
+							<ul class="nav-second-level" aria-expanded="false">
+								<li><a th:href="@{/configusuario}">Usuario</a></li>
+								<li><a th:href="@{/configcategoria}">Categoria</a></li>
+								<li><a th:href="@{/configaplicacion}">Aplicacion</a></li>
+							</ul></li>
+
+
+					</ul>
+				</div>
+				<!-- End Sidebar -->
+				<div class="clearfix"></div>
+			</div>
+			<!-- Sidebar -left -->
+		</div>
+		<!-- Left Sidebar End -->
+
+		<!-- ============================================================== -->
+		<!-- Start Page Content here -->
+		<!-- ============================================================== -->
+
+		<div class="content-page">
+			<div class="content">
+				<!-- Start Content-->
+				<div class="container-fluid">
+					<!-- start page title -->
+					<div class="row">
+						<div class="col-12">
+							<div class="page-title-box">
+								<h4 class="page-title">Mantenimiento Usuario</h4>
+							</div>
+						</div>
+					</div>
+					<!-- end page title -->
+				</div>
+				<!-- container -->
+
+				<div class="container-fluid">
+
+
+
+					<div class="container-fluid">
+
+
+						<div th:if="${param.success}"
+							class="alert alert-warning alert-dismissible fade show"
+							role="alert">
+							<strong>Mensaje </strong> Se proceso su solicitud.
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						
+						<form th:action="@{/configPersonaRegistrar}" method="post"
+							th:object="${persona}">
+
+							<input type="hidden" th:field="*{idpersona}" />
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">Nombres</span>
+										</div>
+										<input type="text" class="form-control" th:field="*{nombre}"
+											placeholder="Ingrese Nombre">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">Apellidos</span>
+										</div>
+										<input type="text" class="form-control"
+											th:field="*{apellidos}" placeholder="Ingrese Apellidos">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">Documento</span>
+										</div>
+										<input type="text" class="form-control" th:field="*{dni}"
+											placeholder="Ingrese Documento">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">Celular</span>
+										</div>
+										<input type="text" class="form-control" th:field="*{celular}"
+											placeholder="Ingrese Celular">
+									</div>
+								</div>
+
+							</div>
+
+							<div class="row">
+								<div class="col-md-6">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">Telefono</span>
+										</div>
+										<input type="text" class="form-control" th:field="*{telefono}"
+											placeholder="Ingrese Telefono">
+									</div>
+								</div>
+
+								<div class="col-md-6" th:object="${authority}">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="basic-addon1">TipoUsuario</span>
+										</div>
+										<select id="cboRol" class="form-control"
+											th:field="${authority.id}">
+											<option value="1">ADMIN</option>
+											<option value="2">OPERADOR</option>
+											<option value="3">NEGOCIO</option>
+										</select>
+
+									</div>
+								</div>
+
+							</div>
+
+
+							<button id="btnGuardar" type="submit"
+								class="btn btn-success float-right ">Guardar</button>
+							<button id="btnCancelar" type="reset"
+								class="btn btn-primary float-right mr-2">Cancelar</button>
+						</form>
+
+						<br> <br>
+
+						<div class="card">
+							<div class="card-header">Lista de Usuarios</div>
+							<div class="card-body">
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">Codigo</th>
+											<th scope="col">Nombre</th>
+											<th scope="col">Apellidos</th>
+											<th scope="col">Documento</th>
+											<th scope="col">Celular</th>
+											<th scope="col">Telefono</th>
+											<th scope="col">Tipo Usuario</th>
+											<th scope="col">Opciones</th>
+										</tr>
+									</thead>
+									<tbody>
+
+										<tr th:each="registro : ${listaPersonas}">
+											<td th:text="${registro.codigo}"></td>
+											<td th:text="${registro.nombre}"></td>
+											<td th:text="${registro.apellido}"></td>
+											<td th:text="${registro.documento}"></td>
+											<td th:text="${registro.celular}"></td>
+											<td th:text="${registro.telefono}"></td>
+											<td th:text="${registro.tipoUsuario}"></td>
+											<td>
+												<button type="button" class="btn btn-warning editar">Editar</button>
+											</td>
+										</tr>
+
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+
+
+
+					</div>
+					<!-- Fin div interno -->
+				</div>
+			</div>
+		</div>
+		<!-- content -->
+
+		<!-- Footer Start -->
+		<footer class="footer">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-6">
+						2021 &copy; ERICK PARIONA YAURICASA <a href="#">CIBERTEC</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- end Footer -->
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Page content -->
+	<!-- ============================================================== -->
+	</div>
+	<!-- Right bar overlay-->
+	<div class="rightbar-overlay"></div>
+	<!-- Vendor js -->
+	<script th:src="@{/js/vendor.min.js}"></script>
+	<!-- App js -->
+	<script th:src="@{/js/app.min.js}"></script>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+
+
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					$(document).on(
+							"click",
+							".editar",
+							function() {
+
+								var codigo = $(this).parents("tr").find("td")
+										.eq(0).html();
+								var nombre = $(this).parents("tr").find("td")
+										.eq(1).html();
+								var apellidos = $(this).parents("tr")
+										.find("td").eq(2).html();
+								var documento = $(this).parents("tr")
+										.find("td").eq(3).html();
+								var celular = $(this).parents("tr").find("td")
+										.eq(4).html();
+								var telefono = $(this).parents("tr").find("td")
+										.eq(5).html();
+								var tipoUsuario = $(this).parents("tr").find(
+										"td").eq(6).html();
+
+								var cadena = tipoUsuario.indexOf("_");
+								var textoRol = tipoUsuario.substr(cadena + 1,
+										10).trim();
+
+								$("#idpersona").val(codigo);
+								$("#nombre").val(nombre);
+								$("#apellidos").val(apellidos);
+								$("#dni").val(documento);
+								$("#celular").val(celular);
+								$("#telefono").val(telefono);
+								$("#cboRol option:contains(" + textoRol + ")")
+										.attr("selected", true);
+
+							});
+
+					$("#btnCancelar").click(function() {
+
+						$("#idpersona").val("0");
+						$("#nombre").val("");
+						$("#apellidos").val("");
+						$("#dni").val("");
+						$("#celular").val("");
+						$("#telefono").val("");
+						$("#cboRol").val("");
+						$("#cboRol option").eq(0).attr("selected", true);
+
+					});
+
+				});
+	</script>
+
+
+
+
+
+</body>
+</html>
