@@ -5,14 +5,14 @@ import java.io.Serializable;
 
 public class CategoriaDTO implements Serializable {
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private int idCategoria;
 	private String descripcion;
 	
-	
+	public CategoriaDTO() {
+		
+	}
 	
 	
 	public CategoriaDTO(int idCategoria, String descripcion) {

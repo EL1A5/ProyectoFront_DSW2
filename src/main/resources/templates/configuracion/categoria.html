@@ -148,10 +148,19 @@
 
 				<div class="container-fluid">
 
-					<div th:if="${param.success}"
-						class="alert alert-warning alert-dismissible fade show"
+					<div th:if="${param.primary}"
+						class="alert alert-success  alert-dismissible fade show"
 						role="alert">
 						<strong>Mensaje </strong> Se proceso su solicitud.
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div th:if="${param.alert}"
+						class="alert alert-warning alert-dismissible fade show"
+						role="alert">
+						<strong>Mensaje </strong> Algo salio mal
 						<button type="button" class="close" data-dismiss="alert"
 							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
@@ -168,7 +177,7 @@
 									</div>
 									<input id="txtCodigo" type="text" class="form-control"
 										th:field="*{idCategoria}"
-										placeholder="Ingrese Codigo Categoria">
+										 readonly>
 								</div>
 							</div>
 							<div class="col-md-8">
@@ -178,7 +187,7 @@
 									</div>
 									<input id="txtNombre" type="text" class="form-control"
 										th:field="*{descripcion}"
-										placeholder="Ingrese Nombre Categoria">
+										placeholder="Ingrese Nombre Categoria" required>
 								</div>
 							</div>
 						</div>
@@ -222,7 +231,7 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-6">
-							2021 &copy; ERICK PARIONA YAURICASA <a href="#">CIBERTEC</a>
+							2022 &copy; PROYECTO DSW2 <a href="#">CIBERTEC</a>
 						</div>
 					</div>
 				</div>

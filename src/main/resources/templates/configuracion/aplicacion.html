@@ -16,7 +16,7 @@
 	type="text/css" />
 <link th:href="@{/css/icons.min.css}" rel="stylesheet" type="text/css" />
 <link th:href="@{/css/app.min.css}" rel="stylesheet" type="text/css" />
-</head>  
+</head>
 <body>
 	<!-- Begin page -->
 	<div id="wrapper">
@@ -28,8 +28,8 @@
 					data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
 					aria-expanded="false"> <img
 						th:src="@{/images/users/avatar-1.jpg}" alt="user-image"
-						class="rounded-circle"> <span class="pro-user-name ml-1" sec:authentication="name">
-					    <i class="mdi mdi-chevron-down"></i>
+						class="rounded-circle"> <span class="pro-user-name ml-1"
+						sec:authentication="name"> <i class="mdi mdi-chevron-down"></i>
 					</span>
 				</a>
 					<div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -143,14 +143,15 @@
 					</div>
 					<!-- end page title -->
 				</div>
-				
-				
-				
+
+
+
 				<!-- container -->
 
 				<div class="container-fluid">
-				
-				<div th:if="${param.success}" class="alert alert-warning alert-dismissible fade show"
+
+					<div th:if="${param.primary}"
+						class="alert alert-success  alert-dismissible fade show"
 						role="alert">
 						<strong>Mensaje </strong> Se proceso su solicitud.
 						<button type="button" class="close" data-dismiss="alert"
@@ -158,7 +159,15 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-
+					<div th:if="${param.alert}"
+						class="alert alert-warning alert-dismissible fade show"
+						role="alert">
+						<strong>Mensaje </strong> Algo salio mal
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
 					<form th:action="@{/configAplicacionRegistrar}"
 						th:object="${aplicacion}" method="post">
 						<div class="row">
@@ -167,8 +176,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="basic-addon1">Codigo</span>
 									</div>
-									<input id="txtCodigo" type="text" class="form-control"
-										placeholder="Ingrese Codigo Aplicativo"
+									<input id="txtCodigo" type="text" class="form-control" readonly
 										th:field="*{idAplicacion}">
 								</div>
 							</div>
@@ -178,16 +186,16 @@
 										<span class="input-group-text" id="basic-addon1">Nombre</span>
 									</div>
 									<input id="txtNombre" type="text" class="form-control"
-										placeholder="Ingrese Nombre Aplicativo" 
+										placeholder="Ingrese Nombre Aplicativo" required 
 										th:field="*{descripcion}">
 								</div>
 							</div>
 						</div>
 						<button type="submit" class="btn btn-success float-right ">Guardar</button>
-						<button id="btnCancelar" type="button" class="btn btn-primary float-right mr-2">Cancelar</button>
+						<button id="btnCancelar" type="button"
+							class="btn btn-primary float-right mr-2">Cancelar</button>
 					</form>
-					<br>
-					<br>
+					<br> <br>
 
 					<div class="card">
 						<div class="card-header">Lista de Aplicaciones</div>
@@ -201,11 +209,11 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="registro : ${listaAplicaciones}" >
+									<tr th:each="registro : ${listaAplicaciones}">
 										<td th:text="${registro.idAplicacion}"></td>
 										<td th:text="${registro.descripcion}"></td>
 										<td>
-										<button type="button" class="btn btn-warning editar">Editar</button>
+											<button type="button" class="btn btn-warning editar">Editar</button>
 										</td>
 									</tr>
 								</tbody>
@@ -242,7 +250,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js"
 		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 		crossorigin="anonymous"></script>
-	
+
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$(document).on("click",".editar",function(){
@@ -260,6 +268,6 @@
 	});
 	
 	</script>
-	
+
 </body>
 </html>
