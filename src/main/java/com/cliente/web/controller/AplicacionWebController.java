@@ -1,5 +1,8 @@
 package com.cliente.web.controller;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,15 +26,7 @@ public class AplicacionWebController {
 	AplicacionService serviceAplicacion;
 	
 	
-	// http://localhost:9090/configaplicacion
-	@GetMapping(value = "/configaplicaciones")
-	
-	public ModelAndView listarAplicaciones() {
-		System.out.println("entra al metodo");
-		ModelAndView modalview=new ModelAndView(Paginas.LISTA_APLICACION);
-		return modalview;
-	}
-	
+
 	
 	@GetMapping("/configaplicacion")
 	public String nav_aplcacion(Model model) {
@@ -45,12 +40,14 @@ public class AplicacionWebController {
 		String url = "";
 		System.out.println("ENTRA "+objAplicacion.getIdAplicacion() +" : "+ objAplicacion.getDescripcion());
 		int insertar = serviceAplicacion.insertaActualizaAplicacion(objAplicacion);
+		
 		if (insertar > 0) {
 			System.out.println("ENTRA AQUI");
-			url = "redirect:/configaplicacion?success=true";
+			url = "redirect:/configaplicacion?primary=true";
+			
 		} else {
 			System.out.println("ENTRA ALLI");
-			url = "redirect:/configaplicacion?success=false";
+			url = "redirect:/configaplicacion?alert=true";
 		}
 		return url;
 	}

@@ -19,6 +19,7 @@ public class AplicacionServiceImpl implements AplicacionService {
 
 	@Override
 	public List<AplicacionDTO> listarAplicacion() {
+		
 		// http://localhost:9010/rest/aplication
 		
 		String endpoint = "http://localhost:9010/rest/aplication";
@@ -58,6 +59,7 @@ public class AplicacionServiceImpl implements AplicacionService {
 	@Override
 	public int insertaActualizaAplicacion(AplicacionDTO aplicacion) {
 		// http://localhost:9010/rest/aplication/registraAplicacion
+		
 		String endpoint = "http://localhost:9010/rest/aplication/registraAplicacion";
 		RestTemplate restCliente = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
@@ -71,6 +73,8 @@ public class AplicacionServiceImpl implements AplicacionService {
 		if (respuesta.getStatusCodeValue()== HttpStatus.OK.value()) {
 			return 1;
 		}else return -1;
+		
+		
 	}
 
 }
