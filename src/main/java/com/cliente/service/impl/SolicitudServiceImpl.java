@@ -70,7 +70,6 @@ public class SolicitudServiceImpl implements SolicitudService {
 	@Override
 	public int insertaActualizaSolicitud(SolicitudDTO solicitud) {
 		//localhost:9010/rest/solicitud/registraSolicitud
-		
 		String endpoint = "http://localhost:9010/rest/solicitud/actualizaSolicitud";
 		RestTemplate restCliente = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();

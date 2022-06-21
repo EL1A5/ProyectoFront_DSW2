@@ -10,6 +10,4 @@ public interface SolicitudService {
 	public abstract SolicitudDTO guarda(SolicitudDTO solicitud);
 	public int insertaActualizaSolicitud(SolicitudDTO solicitud);
 	
-	
-	
 }

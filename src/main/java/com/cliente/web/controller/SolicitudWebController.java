@@ -17,8 +17,6 @@ import com.cliente.service.SolicitudService;
 public class SolicitudWebController {
 	@Autowired
 	SolicitudService serviceSolicitud;
-	
-	
 	@GetMapping("/configsolicitud")
 	public String nav_categoria(Model model) {
 
