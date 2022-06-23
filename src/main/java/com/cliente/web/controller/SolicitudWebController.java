@@ -1,5 +1,9 @@
 package com.cliente.web.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,28 +16,48 @@ import com.cliente.model.DTO.CategoriaDTO;
 import com.cliente.model.DTO.SolicitudDTO;
 import com.cliente.service.SolicitudService;
 
+
 @Controller
 @RequestMapping
 public class SolicitudWebController {
 	@Autowired
 	SolicitudService serviceSolicitud;
-	@GetMapping("/configsolicitud")
-	public String nav_categoria(Model model) {
+	
+	@PostMapping("/registrarAtencion")
+	public String registrarAtencion(@ModelAttribute SolicitudDTO objSolicitud) {
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date date = new Date();
+		SolicitudDTO solicitud = new SolicitudDTO();
+		solicitud.setTipoSolicitud(objSolicitud.getTipoSolicitud());
+		solicitud.setAplicacion(objSolicitud.getAplicacion());
+		solicitud.setCategoria(objSolicitud.getCategoria());
+//		solicitud.setDescripcionSolicitud(objSolicitud.getDescripcionSolicitud());
+//		solicitud.setFechaRegistro(formatoFecha.format(date));
+		solicitud.setPrioridad(objSolicitud.getPrioridad());
+		solicitud.setEstado("Registrado");
 
-		model.addAttribute("listaSolicitud", serviceSolicitud.listarSolicitud());
-		model.addAttribute("solicitud", new SolicitudDTO());
-		return "/reportes/regiatroSolicitud";
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		UserDetails userDetails = (UserDetails) auth.getPrincipal();
+//		Optional<User> usuario = serviceUsuario.buscarUsuario(userDetails.getUsername());
+//		solicitud.setPersona(usuario.get().getPersona());
+		serviceSolicitud.guardar(solicitud);
+		return "redirect:/regsolicitudes?success=true";
 	}
-	@PostMapping("/configCategoriaRegistrar")
-	public String registrarSolicitud(@ModelAttribute SolicitudDTO obj) {
-		String url = "";
-		int insertar = serviceSolicitud.insertaActualizaSolicitud(obj);
-		if (insertar > 0) {
-			url = "redirect:/reporteSolicitud?primary=true";
-		} else {
-			url = "redirect:/reporteSolicitud?alert=true";
-		}
-		return url;
+	
+	
+	@PostMapping("/solicitudActualizar")
+	public String solicitud_actualizar(@ModelAttribute SolicitudDTO sol ) {
+		Date fecha = new Date();
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		SolicitudDTO solicitud = new SolicitudDTO();
+		//sol.getCodigo(), formato.format(fecha), sol.getSolucion()
+		SolicitudDTO inserto = serviceSolicitud.insertaActualizaSolicitud(solicitud);
+		return "redirect:/repsolicitudes";
 	}
 }
+	
+	
+
+
 
