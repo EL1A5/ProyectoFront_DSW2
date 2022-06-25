@@ -14,7 +14,7 @@ import com.cliente.model.DTO.AplicacionDTO;
 import com.cliente.service.AplicacionService;
 import com.cliente.util.RestUtilitario;
 
-@Service
+@Service("aplicacionServiceImpl")
 public class AplicacionServiceImpl implements AplicacionService {
 
 	@Override
