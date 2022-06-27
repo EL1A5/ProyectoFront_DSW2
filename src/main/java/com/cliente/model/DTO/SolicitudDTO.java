@@ -2,6 +2,7 @@ package com.cliente.model.DTO;
 
 public class SolicitudDTO {
 
+
 	private int codigo;
 	private String estado;
 	private String fechaInicio;
@@ -19,6 +20,8 @@ public class SolicitudDTO {
 	public SolicitudDTO() {
 		
 	}  
+	
+
 	public SolicitudDTO(int codigo, String estado, String fechaInicio, String fechaFin, String prioridad,
 			String aplicacion, String tipoSolicitud, String categoria) {
 		super();
@@ -31,6 +34,7 @@ public class SolicitudDTO {
 		this.tipoSolicitud = tipoSolicitud;
 		this.categoria = categoria;
 	}
+
 	public SolicitudDTO(int codigo, String estado, String fechaInicio, String fechaFin, String prioridad,
 			String aplicacion, String tipoSolicitud, String categoria, String solicitud, String solucion) {
 		super();
