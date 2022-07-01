@@ -54,7 +54,7 @@
 			</ul>
 			<!-- LOGO -->
 			<div class="logo-box">
-				<a href="index.html" class="logo text-center"> <span
+				<a href="#" class="logo text-center"> <span
 					class="logo-lg"> <img th:src="@{/images/logo-light.png}"
 						alt="" height="20"> <!-- <span class="logo-lg-text-light">Xeria</span> -->
 				</span> <span class="logo-sm"> <!-- <span class="logo-sm-text-dark">X</span> -->
@@ -82,7 +82,7 @@
 						<li class="menu-title">Menu</li>
 						<li
 							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
-							<a th:href="@{/menu}" class="waves-effect"> <i
+							<a th:href="@{/menu/solicitudes}" class="waves-effect"> <i
 								class="remixicon-vip-crown-2-line"></i> <span> Mis
 									Solicitudes</span>
 						</a>
@@ -147,8 +147,7 @@
 				<!-- container -->
 
 				<div class="container-fluid">
-					<form th:action="@{/missolicitudes}" method="post"
-						autocomplete="off">
+					<form th:action="@{/solicitudes/consultarMisSolicitudes}" method="post" autocomplete="off">
 						<div class="row">
 							<div class="col-md-3">
 								<div class="input-group mb-3">
@@ -156,7 +155,6 @@
 										<span class="input-group-text" id="basic-addon1">Estado</span>
 									</div>
 									<select id="cboEstado" name="cboEstado" class="form-control">
-
 										<option value="Registrado">Registrado</option>
 										<option value="Atendido">Atendido</option>
 									</select>

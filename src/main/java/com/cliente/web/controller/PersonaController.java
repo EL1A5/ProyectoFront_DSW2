@@ -23,7 +23,6 @@ public class PersonaController {
 	@PostMapping("/configPersonaRegistrar")
 	public String registrarPersona(@ModelAttribute PersonaDTO persona) {
 		String url = "";
-		int rptaGuardar =0;
 		System.out.println("Codigo :" +persona.getCodigo());
 		System.out.println("Nombre: " +persona.getNombre());
 		System.out.println("Apellido : " +persona.getApellido());

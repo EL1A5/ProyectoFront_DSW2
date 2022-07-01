@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cliente.model.DTO.CategoriaDTO;
 import com.cliente.model.DTO.SolicitudDTO;
+import com.cliente.service.AplicacionService;
 import com.cliente.service.SolicitudService;
 
 
@@ -22,6 +25,10 @@ import com.cliente.service.SolicitudService;
 public class SolicitudWebController {
 	@Autowired
 	SolicitudService serviceSolicitud;
+	
+	@Autowired
+	AplicacionService serviceAplicacion;
+	
 	
 	@PostMapping("/registrarAtencion")
 	public String registrarAtencion(@ModelAttribute SolicitudDTO objSolicitud) {
@@ -55,6 +62,34 @@ public class SolicitudWebController {
 		SolicitudDTO inserto = serviceSolicitud.insertaActualizaSolicitud(solicitud);
 		return "redirect:/repsolicitudes";
 	}
+	
+	
+	@GetMapping("/menu/solicitudes")
+	public String menu_solicitudes(Model model) {
+		model.addAttribute("listaAplicativos", serviceAplicacion.listarAplicacion() );
+		return "principal";
+	}
+	
+	
+	@PostMapping("/solicitudes/consultarMisSolicitudes")
+	public String consultar_mis_solicitudes(HttpServletRequest request, Model model) {
+		
+		System.out.println("Estado : " + request.getParameter("cboEstado") );
+		System.out.println("Aplicativo : " + request.getParameter("cboAplicacion") );
+		System.out.println("Fecha : " + request.getParameter("fecha") );
+		
+		
+		
+		
+		
+		
+		
+		model.addAttribute("listaAplicativos", serviceAplicacion.listarAplicacion() );
+		return "principal";
+	}
+	
+	
+	
 }
 	
 	

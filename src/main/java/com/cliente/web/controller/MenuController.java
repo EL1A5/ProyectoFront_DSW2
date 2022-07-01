@@ -26,10 +26,7 @@ public class MenuController {
 	
 	@Autowired
 	PersonaService servicioPersona;
-	
-	
-	
-	
+
 	@GetMapping("/configcategoria")
 	public String nav_categoria(Model model) {
 		model.addAttribute("listaCategorias", servicioCategoria.listarCategoria());
