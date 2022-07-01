@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cliente.model.DTO.PersonaDTO;
+import com.cliente.model.DTO.RptaServerDTO;
 import com.cliente.service.PersonaService;
 
 @Controller
@@ -23,18 +24,31 @@ public class PersonaController {
 	public String registrarPersona(@ModelAttribute PersonaDTO persona) {
 		String url = "";
 		int rptaGuardar =0;
+		System.out.println("Codigo :" +persona.getCodigo());
+		System.out.println("Nombre: " +persona.getNombre());
+		System.out.println("Apellido : " +persona.getApellido());
+		System.out.println("Documento : " +persona.getDocumento());
+		System.out.println("Celular : " +persona.getCelular());
+		System.out.println("Telefono : " +persona.getTelefono());
+		System.out.println("tipo usuario : " +persona.getTipoUsuario());
 		
-		
-		
-		
-		
-
-		if (rptaGuardar > 0) {
-			url = "redirect:/persona/configusuario?success=true";
-		} else {
+		RptaServerDTO rpta;
+		if (persona.getCodigo() == 0) {
+			rpta = servicioPersona.insertarPersonas(persona);
+		}else {
+			rpta = servicioPersona.actualizarPersonas(persona);
+		}
+	
+		if (rpta!= null) {
+			if (rpta.getCodigo()== 1) {
+				url = "redirect:/persona/configusuario?success=true";
+			} else {
+				url = "redirect:/persona/configusuario?success=false";
+			}
+		}else {
 			url = "redirect:/persona/configusuario?success=false";
 		}
-
+	
 		return url;
 	}
 	

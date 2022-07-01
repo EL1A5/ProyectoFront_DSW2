@@ -2,7 +2,7 @@ package com.cliente.model.DTO;
 
 public class PersonaDTO {
 	
-	private int idpersona;
+	private int codigo;
 	private String nombre;
 	private String apellido;
 	private String documento;
@@ -15,10 +15,10 @@ public class PersonaDTO {
 	}
 	
 	
-	public PersonaDTO(int idpersona, String nombre, String apellido, String documento, String celular, String telefono,
+	public PersonaDTO(int codigo, String nombre, String apellido, String documento, String celular, String telefono,
 			String tipoUsuario) {
 		super();
-		this.idpersona = idpersona;
+		this.codigo = codigo;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.documento = documento;
@@ -28,13 +28,17 @@ public class PersonaDTO {
 	}
 
 
-	public int getIdpersona() {
-		return idpersona;
+	
+	
+	
+
+	public int getCodigo() {
+		return codigo;
 	}
 
 
-	public void setIdpersona(int idpersona) {
-		this.idpersona = idpersona;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 

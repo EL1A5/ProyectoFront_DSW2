@@ -161,10 +161,9 @@
 							</button>
 						</div>
 						
-						<form th:action="@{/persona/configPersonaRegistrar}" method="post"
-							th:object="${persona}">
+						<form th:action="@{/persona/configPersonaRegistrar}" method="post" th:object="${persona}">
 
-							<input type="hidden" th:field="*{idpersona}" />
+							<input id="codigo" type="hidden" th:field="*{codigo}" />
 
 							<div class="row">
 								<div class="col-md-6">
@@ -181,7 +180,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="basic-addon1">Apellidos</span>
 										</div>
-										<input type="text" class="form-control"
+										<input type="text" class="form-control" id="apellidos"
 											th:field="*{apellido}" placeholder="Ingrese Apellidos">
 									</div>
 								</div>
@@ -193,7 +192,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="basic-addon1">Documento</span>
 										</div>
-										<input type="text" class="form-control" th:field="*{documento}"
+										<input id="documento" type="text" class="form-control" th:field="*{documento}"
 											placeholder="Ingrese Documento">
 									</div>
 								</div>
@@ -265,7 +264,7 @@
 									<tbody>
 
 										<tr th:each="registro : ${listaPersonas}">
-											<td th:text="${registro.idpersona}"></td>
+											<td th:text="${registro.codigo}"></td>
 											<td th:text="${registro.nombre}"></td>
 											<td th:text="${registro.apellido}"></td>
 											<td th:text="${registro.documento}"></td>
@@ -348,10 +347,10 @@
 								var textoRol = tipoUsuario.substr(cadena + 1,
 										10).trim();
 
-								$("#idpersona").val(codigo);
+								$("#codigo").val(codigo);
 								$("#nombre").val(nombre);
 								$("#apellidos").val(apellidos);
-								$("#dni").val(documento);
+								$("#documento").val(documento);
 								$("#celular").val(celular);
 								$("#telefono").val(telefono);
 								$("#cboRol option:contains(" + textoRol + ")")
