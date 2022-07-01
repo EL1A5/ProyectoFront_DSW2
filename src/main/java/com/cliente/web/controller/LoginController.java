@@ -16,13 +16,10 @@ import com.cliente.service.impl.UsuarioServiceImpl;
 @Controller
 @RequestMapping
 public class LoginController {
-
 	@Autowired
 	@Qualifier("usuarioService")
 	private UsuarioServiceImpl usuarioService;
-	
-	
-	
+
 	@RequestMapping({"/","/login"})
 	public String inicio() {
 		return "login";

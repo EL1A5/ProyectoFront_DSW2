@@ -80,21 +80,19 @@
 				<div id="sidebar-menu">
 					<ul class="metismenu" id="side-menu">
 						<li class="menu-title">Menu</li>
-						<li
-							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
+						<li>
 							<a th:href="@{/menu}" class="waves-effect"> <i
 								class="remixicon-vip-crown-2-line"></i> <span> Mis
 									Solicitudes</span>
 						</a>
 						</li>
-						<li
-							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
+						<li>
 							<a th:href="@{/regsolicitudes}" class="waves-effect"> <i
 								class="remixicon-vip-crown-2-line"></i> <span> Registro
 									Solicitud</span>
 						</a>
 						</li>
-						<li sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN')">
+						<li>
 							<a href="javascript: void(0);" class="waves-effect"> <i
 								class="remixicon-stack-line"></i> <span> Consultas </span> <span
 								class="menu-arrow"></span>
@@ -111,7 +109,7 @@
 								class="menu-arrow"></span>
 						</a>
 							<ul class="nav-second-level" aria-expanded="false">
-								<li><a th:href="@{/configusuario}">Usuario</a></li>
+								<li><a th:href="@{/menu/configusuario}">Usuario</a></li>
 								<li><a th:href="@{/configcategoria}">Categoria</a></li>
 								<li><a th:href="@{/configaplicacion}">Aplicacion</a></li>
 							</ul></li>
@@ -163,7 +161,7 @@
 							</button>
 						</div>
 						
-						<form th:action="@{/configPersonaRegistrar}" method="post"
+						<form th:action="@{/persona/configPersonaRegistrar}" method="post"
 							th:object="${persona}">
 
 							<input type="hidden" th:field="*{idpersona}" />
@@ -184,7 +182,7 @@
 											<span class="input-group-text" id="basic-addon1">Apellidos</span>
 										</div>
 										<input type="text" class="form-control"
-											th:field="*{apellidos}" placeholder="Ingrese Apellidos">
+											th:field="*{apellido}" placeholder="Ingrese Apellidos">
 									</div>
 								</div>
 							</div>
@@ -195,7 +193,7 @@
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="basic-addon1">Documento</span>
 										</div>
-										<input type="text" class="form-control" th:field="*{dni}"
+										<input type="text" class="form-control" th:field="*{documento}"
 											placeholder="Ingrese Documento">
 									</div>
 								</div>
@@ -222,13 +220,13 @@
 									</div>
 								</div>
 
-								<div class="col-md-6" th:object="${authority}">
+								<div class="col-md-6">
 									<div class="input-group mb-3">
 										<div class="input-group-prepend">
 											<span class="input-group-text" id="basic-addon1">TipoUsuario</span>
 										</div>
 										<select id="cboRol" class="form-control"
-											th:field="${authority.id}">
+											th:field="*{tipoUsuario}">
 											<option value="1">ADMIN</option>
 											<option value="2">OPERADOR</option>
 											<option value="3">NEGOCIO</option>
@@ -267,7 +265,7 @@
 									<tbody>
 
 										<tr th:each="registro : ${listaPersonas}">
-											<td th:text="${registro.codigo}"></td>
+											<td th:text="${registro.idpersona}"></td>
 											<td th:text="${registro.nombre}"></td>
 											<td th:text="${registro.apellido}"></td>
 											<td th:text="${registro.documento}"></td>
@@ -284,6 +282,7 @@
 
 							</div>
 						</div>
+						
 
 
 
