@@ -36,7 +36,7 @@
                                     <p class="text-muted mb-4 mt-3">Ingrese credenciales para acceder al sistema.</p>
                                 </div>
 
-                                <form th:action="@{/login}" method="post"  autocomplete="off">
+                                <form th:action="@{/autenticarUsuario}" method="post"  autocomplete="off">
 
                                     <div class="form-group mb-3">
                                         <label for="username">Usuario</label>
@@ -48,7 +48,7 @@
                                         <input  class="form-control" type="password" id="password"  name="password"  placeholder="Ingrese Contraseña">
                                     </div>
                                     
-                                    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                                    <div th:if="${param.usuarioval}" class="alert alert-danger" role="alert">
                                     	Usuario y Contraseña Invalido.
                                     </div>
 
