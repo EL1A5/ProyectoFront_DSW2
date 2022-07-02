@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.cliente.model.DTO.AplicacionDTO;
+import com.cliente.model.DTO.AutenticacionResponseDTO;
+import com.cliente.model.DTO.RptaServerDTO;
 import com.cliente.model.DTO.SolicitudDTO;
+import com.cliente.model.DTO.SolicitudUsuarioDTO;
 import com.cliente.service.SolicitudService;
 import com.cliente.util.RestUtilitario;
 
@@ -145,6 +148,29 @@ public class SolicitudServiceImpl implements SolicitudService {
 		}else return -1;
 		
 		*/
+	}
+
+
+
+	@Override
+	public RptaServerDTO guardarSolicitud(SolicitudUsuarioDTO solicitud) {
+		String endPoint = "http://localhost:9010/rest/solicitud/registrarSolicitudNew";
+		
+		RestTemplate restCliente = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity request = new HttpEntity<>(solicitud, headers);
+		
+		ResponseEntity<RptaServerDTO> respuesta = null;
+		RestUtilitario restUtil = new RestUtilitario();
+		
+		respuesta = restUtil.consumeRestServicePOST(endPoint, request, RptaServerDTO.class);
+		
+		if (respuesta.getStatusCodeValue() == HttpStatus.OK.value() ) {
+			RptaServerDTO obj = respuesta.getBody();
+			return obj;
+		}else {
+			return null;
+		}
 	}
 
 	

@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cliente.model.DTO.CategoriaDTO;
+import com.cliente.model.DTO.RptaServerDTO;
 import com.cliente.model.DTO.SolicitudDTO;
+import com.cliente.model.DTO.SolicitudUsuarioDTO;
 import com.cliente.service.AplicacionService;
+import com.cliente.service.CategoriaService;
 import com.cliente.service.SolicitudService;
+import com.cliente.service.TipoSolicitudService;
 
 
 @Controller
@@ -29,40 +33,39 @@ public class SolicitudWebController {
 	@Autowired
 	AplicacionService serviceAplicacion;
 	
+	@Autowired
+	TipoSolicitudService serviceTipoSolicitud;
 	
-	@PostMapping("/registrarAtencion")
+	@Autowired
+	CategoriaService serviceCategoria;
+	
+	@PostMapping("/solicitudes/registrarAtencion")
 	public String registrarAtencion(@ModelAttribute SolicitudDTO objSolicitud) {
-		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		Date date = new Date();
-		SolicitudDTO solicitud = new SolicitudDTO();
-		solicitud.setTipoSolicitud(objSolicitud.getTipoSolicitud());
-		solicitud.setAplicacion(objSolicitud.getAplicacion());
-		solicitud.setCategoria(objSolicitud.getCategoria());
-//		solicitud.setDescripcionSolicitud(objSolicitud.getDescripcionSolicitud());
-//		solicitud.setFechaRegistro(formatoFecha.format(date));
-		solicitud.setPrioridad(objSolicitud.getPrioridad());
-		solicitud.setEstado("Registrado");
-
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		UserDetails userDetails = (UserDetails) auth.getPrincipal();
-//		Optional<User> usuario = serviceUsuario.buscarUsuario(userDetails.getUsername());
-//		solicitud.setPersona(usuario.get().getPersona());
-		serviceSolicitud.guardar(solicitud);
-		return "redirect:/regsolicitudes?success=true";
-	}
-	
-	
-	@PostMapping("/solicitudActualizar")
-	public String solicitud_actualizar(@ModelAttribute SolicitudDTO sol ) {
-		Date fecha = new Date();
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		System.out.println("Tipo Solicitud: " + objSolicitud.getTipoSolicitud());
+		System.out.println("Aplicacion: " + objSolicitud.getAplicacion());
+		System.out.println("Categoria: " + objSolicitud.getCategoria());
+		System.out.println("Prioridad: " + objSolicitud.getPrioridad());
+		System.out.println("Solicitud: " + objSolicitud.getSolicitud());
 		
-		SolicitudDTO solicitud = new SolicitudDTO();
-		//sol.getCodigo(), formato.format(fecha), sol.getSolucion()
-		SolicitudDTO inserto = serviceSolicitud.insertaActualizaSolicitud(solicitud);
-		return "redirect:/repsolicitudes";
+		SolicitudUsuarioDTO sol = new SolicitudUsuarioDTO();
+		sol.setAplicacion(Integer.parseInt(objSolicitud.getAplicacion()));
+		sol.setTipoSolicitud(Integer.parseInt(objSolicitud.getTipoSolicitud()));
+		sol.setCategoria(Integer.parseInt(objSolicitud.getCategoria()));
+		sol.setPrioridad(objSolicitud.getPrioridad());
+		sol.setDescripcion(objSolicitud.getSolicitud());
+		
+		RptaServerDTO rpta =serviceSolicitud.guardarSolicitud(sol);
+		
+		if (rpta!= null) {
+			System.out.println("Inserto");
+		}else {
+			System.out.println("No Inserto");
+		}
+	
+		return "redirect:/solicitudes/registrar?success=true";
 	}
 	
+
 	
 	@GetMapping("/menu/solicitudes")
 	public String menu_solicitudes(Model model) {
@@ -70,22 +73,27 @@ public class SolicitudWebController {
 		return "principal";
 	}
 	
-	
 	@PostMapping("/solicitudes/consultarMisSolicitudes")
 	public String consultar_mis_solicitudes(HttpServletRequest request, Model model) {
-		
 		System.out.println("Estado : " + request.getParameter("cboEstado") );
 		System.out.println("Aplicativo : " + request.getParameter("cboAplicacion") );
 		System.out.println("Fecha : " + request.getParameter("fecha") );
 		
 		
-		
-		
-		
-		
-		
 		model.addAttribute("listaAplicativos", serviceAplicacion.listarAplicacion() );
-		return "principal";
+		return "principal";// se tiene que ir a otro lado
+	}
+	
+	
+	
+	@GetMapping("/solicitudes/registrar")
+	public String registrar_solicitudes(Model model) {
+		System.out.println("registro solicitudes");
+		model.addAttribute("listaAplicativos", serviceAplicacion.listarAplicacion());
+		model.addAttribute("listaTipoSolicitudes", serviceTipoSolicitud.listarTipoSolicitud());
+		model.addAttribute("listaCategoria", serviceCategoria.listarCategoria());
+		model.addAttribute("solicitud", new SolicitudDTO());
+		return "/core/registroSolicitud";
 	}
 	
 	

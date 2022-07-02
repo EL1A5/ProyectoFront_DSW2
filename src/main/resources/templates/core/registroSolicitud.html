@@ -82,14 +82,14 @@
 						<li class="menu-title">Menu</li>
 						<li
 							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
-							<a th:href="@{/menu}" class="waves-effect"> <i
+							<a th:href="@{/menu/solicitudes}" class="waves-effect"> <i
 								class="remixicon-vip-crown-2-line"></i> <span> Mis
 									Solicitudes</span>
 						</a>
 						</li>
 						<li
 							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
-							<a th:href="@{/regsolicitudes}" class="waves-effect"> <i
+							<a th:href="@{/solicitudes/registrar}" class="waves-effect"> <i
 								class="remixicon-vip-crown-2-line"></i> <span> Registro
 									Solicitud</span>
 						</a>
@@ -111,9 +111,9 @@
 								class="menu-arrow"></span>
 						</a>
 							<ul class="nav-second-level" aria-expanded="false">
-								<li><a th:href="@{/configusuario}">Usuario</a></li>
-								<li><a th:href="@{/configcategoria}">Categoria</a></li>
-								<li><a th:href="@{/configaplicacion}">Aplicacion</a></li>
+								<li><a th:href="@{/menu/configusuario}">Usuario</a></li>
+								<li><a th:href="@{/menu/configcategoria}">Categoria</a></li>
+								<li><a th:href="@{/menu/configaplicacion}">Aplicacion</a></li>
 							</ul></li>
 
 					</ul>
@@ -158,8 +158,7 @@
 					</div>
 
 
-					<form th:action="@{/registrarAtencion}" method="post"
-						th:object="${solicitud}">
+					<form th:action="@{/solicitudes/registrarAtencion}" method="post" th:object="${solicitud}">
 
 						<div class="row">
 							<div class="col-md-4">
@@ -169,7 +168,7 @@
 											Solicitud</span>
 									</div>
 									<select class="form-control" id="cboTipoSolicitud"
-										th:field="*{tipoSolicitud.idTipoSolicitud}">
+										th:field="*{tipoSolicitud}">
 										<option th:each="tipoSolicitud:${listaTipoSolicitudes}"
 											th:value="${tipoSolicitud.idTipoSolicitud}"
 											th:utext="${tipoSolicitud.descripcion}"></option>
@@ -182,7 +181,7 @@
 										<span class="input-group-text" id="basic-addon1">Aplicacion</span>
 									</div>
 									<select class="form-control" id="cboAplicativo"
-										th:field="*{aplicacion.idAplicacion}">
+										th:field="*{aplicacion}">
 										<option th:each="aplicativo: ${listaAplicativos}"
 											th:value="${aplicativo.idAplicacion}"
 											th:utext="${aplicativo.descripcion}"></option>
@@ -197,7 +196,7 @@
 										<span class="input-group-text" id="basic-addon1">Categoria</span>
 									</div>
 									<select class="form-control" id="cboCategoria"
-										th:field="*{categoria.idCategoria}">
+										th:field="*{categoria}">
 										<option th:each="categoria:${listaCategoria}"
 											th:value="${categoria.idCategoria}"
 											th:utext="${categoria.descripcion}"></option>
@@ -224,7 +223,7 @@
 								<div class="form-group">
 									<label for="exampleFormControlTextarea1">Descripcion </label>
 									<textarea class="form-control" id="descripcion" rows="3"
-										th:field="*{descripcionSolicitud}"></textarea>
+										th:field="*{solicitud}"></textarea>
 								</div>
 							</div>
 						</div>
