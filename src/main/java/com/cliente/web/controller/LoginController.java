@@ -1,6 +1,7 @@
 package com.cliente.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,13 @@ public class LoginController {
 		return "login";
 	}
 	
+	@GetMapping("/logout")
+	public String salir() {
+		return "logout";
+	}
+	
+	
+	
 	@PostMapping("/autenticarUsuario")
 	public String validarUsuario(HttpServletRequest request) {
 		String url = "";
@@ -40,6 +48,7 @@ public class LoginController {
 		if (rpta != null) {
 			System.out.println(rpta.getCodigo());
 			System.out.println(rpta.getMensaje());
+			
 			
 			if (rpta.getCodigo().equals("1")) {
 				url = "redirect:/principal";
