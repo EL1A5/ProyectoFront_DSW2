@@ -1,6 +1,8 @@
 package com.cliente.model.DTO;
 
-public class SolicitudUsuarioDTO {
+import java.io.Serializable;
+
+public class SolicitudUsuarioDTO implements Serializable{
 	
 	private int codigo;
 	private int tipoSolicitud;

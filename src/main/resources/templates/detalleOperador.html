@@ -54,7 +54,7 @@
 			</ul>
 			<!-- LOGO -->
 			<div class="logo-box">
-				<a href="index.html" class="logo text-center"> <span
+				<a href="#" class="logo text-center"> <span
 					class="logo-lg"> <img th:src="@{/images/logo-light.png}"
 						alt="" height="20"> <!-- <span class="logo-lg-text-light">Xeria</span> -->
 				</span> <span class="logo-sm"> <!-- <span class="logo-sm-text-dark">X</span> -->
@@ -82,14 +82,14 @@
 						<li class="menu-title">Menu</li>
 						<li
 							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
-							<a th:href="@{/menu}" class="waves-effect"> <i
+							<a th:href="@{/menu/solicitudes}" class="waves-effect"> <i
 								class="remixicon-vip-crown-2-line"></i> <span> Mis
 									Solicitudes</span>
 						</a>
 						</li>
 						<li
 							sec:authorize="hasAnyAuthority('ROLE_OPERADOR','ROLE_ADMIN','ROLE_NEGOCIO')">
-							<a th:href="@{/regsolicitudes}" class="waves-effect"> <i
+							<a th:href="@{/solicitudes/registrar}" class="waves-effect"> <i
 								class="remixicon-vip-crown-2-line"></i> <span> Registro
 									Solicitud</span>
 						</a>
@@ -100,8 +100,8 @@
 								class="menu-arrow"></span>
 						</a>
 							<ul class="nav-second-level" aria-expanded="false">
-								<li><a th:href="@{/repsolicitudes}">Solicitudes</a></li>
-								<li><a th:href="@{/repusuarios}">Usuarios</a></li>
+								<li><a th:href="@{/consulta/repsolicitudes}">Solicitudes</a></li>
+								<li><a th:href="@{/consulta/repusuarios}">Usuarios</a></li>
 							</ul>
 						</li>
 
@@ -111,9 +111,9 @@
 								class="menu-arrow"></span>
 						</a>
 							<ul class="nav-second-level" aria-expanded="false">
-								<li><a th:href="@{/configusuario}">Usuario</a></li>
-								<li><a th:href="@{/configcategoria}">Categoria</a></li>
-								<li><a th:href="@{/configaplicacion}">Aplicacion</a></li>
+								<li><a th:href="@{/menu/configusuario}">Usuario</a></li>
+								<li><a th:href="@{/menu/configcategoria}">Categoria</a></li>
+								<li><a th:href="@{/menu/configaplicacion}">Aplicacion</a></li>
 							</ul></li>
 
 
@@ -148,7 +148,7 @@
 
 				<div class="container-fluid">
 
-					<form th:action="@{/solicitudActualizar}" method="post" th:object="${solicitud}">
+					<form th:action="@{/consulta/solicitudActualizar}" method="post" th:object="${solicitud}">
 
 						<div class="row">
 						<div class="col-md-4">
@@ -249,7 +249,7 @@
 							</div>
 						</div>
 						
-						<a th:href="@{/repsolicitudes}" class="btn btn-primary mr-2">Regresar</a>
+						<a th:href="@{/consulta/repsolicitudes}" class="btn btn-primary mr-2">Regresar</a>
 						<button th:if="${solicitud.estado}=='Registrado'" type="submit" class="btn btn-primary float-right mr-2" style="color: white;">Guardar</button>
 						
 					</form>

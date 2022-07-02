@@ -147,7 +147,7 @@
 				<!-- container -->
 
 				<div class="container-fluid">
-					<form th:action="@{/consultarSolicitudes}" method="post"
+					<form th:action="@{/consulta/consultarSolicitudes}" method="post"
 						autocomplete="off">
 						<div class="row">
 							<div class="col-md-3">
@@ -167,7 +167,7 @@
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="basic-addon1">Fecha</span>
 									</div>
-									<input type="text" id="date_range" name="fecha"
+									<input name="fecha" type="text" id="date_range"
 										class="form-control pull-right"> <span
 										class="input-group-btn"> </span>
 								</div>
@@ -209,7 +209,7 @@
 										<td th:text="${registro.aplicacion}"></td>
 										<td th:text="${registro.tipoSolicitud}"></td>
 										<td th:text="${registro.categoria}"></td>
-										<td><a th:href="@{/verSolicitudDetalle/}+${registro.codigo} "
+										<td><a th:href="@{/consulta/verSolicitudDetalle/}+${registro.codigo} "
 											class="btn btn-primary">Detalle</a></td>
 									</tr>
 								</tbody>

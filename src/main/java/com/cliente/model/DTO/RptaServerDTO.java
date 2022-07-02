@@ -1,6 +1,8 @@
 package com.cliente.model.DTO;
 
-public class RptaServerDTO {
+import java.io.Serializable;
+
+public class RptaServerDTO implements Serializable{
 	
 	private int codigo;
 	private String mensaje;

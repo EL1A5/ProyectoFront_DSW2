@@ -3,7 +3,6 @@ package com.cliente.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,10 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.cliente.model.DTO.AplicacionDTO;
-import com.cliente.model.DTO.AutenticacionResponseDTO;
+import com.cliente.model.DTO.ConsultarSolicitudesXEstadoFecha;
 import com.cliente.model.DTO.RptaServerDTO;
 import com.cliente.model.DTO.SolicitudDTO;
+import com.cliente.model.DTO.SolicitudUserDTO;
 import com.cliente.model.DTO.SolicitudUsuarioDTO;
 import com.cliente.service.SolicitudService;
 import com.cliente.util.RestUtilitario;
@@ -39,8 +38,29 @@ public class SolicitudServiceImpl implements SolicitudService {
 
 	@Override
 	public SolicitudDTO fetchSolicitudDetallexIDDTODataInnerJoin(int codigoSolicitud) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		RptaServerDTO rpta = new RptaServerDTO();
+		rpta.setCodigo(codigoSolicitud);
+		
+		String endpoint = "http://localhost:9010/rest/solicitud/consultarSolicitud";
+		RestTemplate restCliente = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity request = new HttpEntity<>(rpta, headers);
+		
+		ResponseEntity<SolicitudDTO> respuesta  = null;
+		RestUtilitario restUtil = new RestUtilitario();
+		
+		respuesta = restUtil.consumeRestServicePOST
+				(endpoint,
+					request,
+					SolicitudDTO.class);
+		if (respuesta.getStatusCodeValue()== HttpStatus.OK.value()) {
+			SolicitudDTO pokemones = respuesta.getBody();
+			return pokemones;		
+			
+		}else{
+			return null;
+		}
 	}
 
 	@Override
@@ -170,6 +190,96 @@ public class SolicitudServiceImpl implements SolicitudService {
 			return obj;
 		}else {
 			return null;
+		}
+	}
+
+
+
+	@Override
+	public List<SolicitudUserDTO> findByEstadoAndFechaRegistro(ConsultarSolicitudesXEstadoFecha obj) {
+		String endpoint = "http://localhost:9010/rest/solicitud/consultarSolicitudes";
+		RestTemplate restCliente = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity request = new HttpEntity<>(obj,headers);
+		
+		ResponseEntity<SolicitudUserDTO[]> respuesta  = null;
+		
+		RestUtilitario restUtil = new RestUtilitario();
+		
+		respuesta = restUtil.consumeRestServicePOST
+				(endpoint,
+					request,
+					SolicitudUserDTO[].class);
+		
+		if (respuesta.getStatusCodeValue()== HttpStatus.OK.value()) {
+			SolicitudUserDTO[] pokemones = respuesta.getBody();
+			
+			List<SolicitudUserDTO> lstPokes = new ArrayList<SolicitudUserDTO>();
+			for(SolicitudUserDTO poke: pokemones){
+				lstPokes.add(poke);		
+			}	
+			return lstPokes;		
+			
+		}else{
+			return new ArrayList<>();
+		}
+	}
+
+
+
+	@Override
+	public RptaServerDTO updateSolicitud(SolicitudDTO sol) {
+		String endpoint = "http://localhost:9010/rest/solicitud/solicitudActualizar";
+		RestTemplate restCliente = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity request = new HttpEntity<>(sol,headers);
+		
+		ResponseEntity<RptaServerDTO> respuesta  = null;
+		
+		RestUtilitario restUtil = new RestUtilitario();
+		
+		respuesta = restUtil.consumeRestServicePOST
+				(endpoint,
+					request,
+					RptaServerDTO.class);
+		
+		if (respuesta.getStatusCodeValue()== HttpStatus.OK.value()) {
+			RptaServerDTO pokemones = respuesta.getBody();
+			return pokemones;
+		}else{
+			return null;
+		}
+	}
+
+
+
+	@Override
+	public List<SolicitudUserDTO> consultarSolicitudEstadoFecha(ConsultarSolicitudesXEstadoFecha obj) {
+		String endpoint = "http://localhost:9010/rest/solicitud/consultarSolicitudxUsuarioFecha";
+		RestTemplate restCliente = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity request = new HttpEntity<>(obj,headers);
+		
+		ResponseEntity<SolicitudUserDTO[]> respuesta  = null;
+		
+		RestUtilitario restUtil = new RestUtilitario();
+		
+		respuesta = restUtil.consumeRestServicePOST
+				(endpoint,
+					request,
+					SolicitudUserDTO[].class);
+		
+		if (respuesta.getStatusCodeValue()== HttpStatus.OK.value()) {
+			SolicitudUserDTO[] pokemones = respuesta.getBody();
+			
+			List<SolicitudUserDTO> lstPokes = new ArrayList<SolicitudUserDTO>();
+			for(SolicitudUserDTO poke: pokemones){
+				lstPokes.add(poke);		
+			}	
+			return lstPokes;		
+			
+		}else{
+			return new ArrayList<>();
 		}
 	}
 

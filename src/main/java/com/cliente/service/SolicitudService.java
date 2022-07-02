@@ -2,8 +2,10 @@ package com.cliente.service;
 
 import java.util.List;
 
+import com.cliente.model.DTO.ConsultarSolicitudesXEstadoFecha;
 import com.cliente.model.DTO.RptaServerDTO;
 import com.cliente.model.DTO.SolicitudDTO;
+import com.cliente.model.DTO.SolicitudUserDTO;
 import com.cliente.model.DTO.SolicitudUsuarioDTO;
 
 
@@ -27,6 +29,13 @@ public interface SolicitudService {
 	public abstract SolicitudDTO insertaActualizaSolicitud(SolicitudDTO solicitud);
 
 	public RptaServerDTO guardarSolicitud(SolicitudUsuarioDTO solicitud);
+	
+	public RptaServerDTO updateSolicitud(SolicitudDTO sol);
+	
+	
+	public List<SolicitudUserDTO> findByEstadoAndFechaRegistro(ConsultarSolicitudesXEstadoFecha obj);
+	
+	public List<SolicitudUserDTO> consultarSolicitudEstadoFecha(ConsultarSolicitudesXEstadoFecha obj);
 
 }
    

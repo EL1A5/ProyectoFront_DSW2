@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.cliente.model.DTO.AplicacionDTO;
 import com.cliente.model.DTO.AutenticacionResponseDTO;
+import com.cliente.model.DTO.FiltroPersonaDTO;
 import com.cliente.model.DTO.PersonaDTO;
 import com.cliente.model.DTO.RptaServerDTO;
 import com.cliente.service.PersonaService;
@@ -77,6 +78,32 @@ public class PersonaServiceImpl implements PersonaService {
 			return obj;
 		}else {
 			return null;
+		}
+	}
+
+	@Override
+	public List<PersonaDTO> listadoFiltro(FiltroPersonaDTO dto) {
+		String endpoint = "http://localhost:9010/usuario/listadoFiltro";
+		RestTemplate restCliente = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity request = new HttpEntity<>(dto, headers);
+		
+		ResponseEntity<PersonaDTO[]> respuesta  = null;
+		
+		RestUtilitario restUtil = new RestUtilitario();
+		
+		respuesta = restUtil.consumeRestServicePOST(endpoint,request,PersonaDTO[].class);
+		
+		if (respuesta.getStatusCodeValue()== HttpStatus.OK.value()) {
+			PersonaDTO[] persona = respuesta.getBody();
+			List<PersonaDTO> lista = new ArrayList<PersonaDTO>();
+			for(PersonaDTO x: persona){
+				lista.add(x);		
+			}	
+			return lista;		
+			
+		}else{
+			return new ArrayList<>();
 		}
 	}
 

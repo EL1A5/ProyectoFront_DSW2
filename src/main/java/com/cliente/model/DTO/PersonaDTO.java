@@ -1,6 +1,8 @@
 package com.cliente.model.DTO;
 
-public class PersonaDTO {
+import java.io.Serializable;
+
+public class PersonaDTO implements Serializable {
 	
 	private int codigo;
 	private String nombre;

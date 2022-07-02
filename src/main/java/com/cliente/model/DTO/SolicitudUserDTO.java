@@ -2,7 +2,7 @@ package com.cliente.model.DTO;
 
 import java.io.Serializable;
 
-public class SolicitudDTO implements Serializable {
+public class SolicitudUserDTO implements Serializable {
 
 	private int codigo;
 	private String estado;
@@ -14,14 +14,15 @@ public class SolicitudDTO implements Serializable {
 	private String categoria;
 	private String solicitud;
 	private String solucion;	
-	//Datos para consulta Av.
 	private String reg_nombres;
 	private String reg_apellidos;
 	
-	public SolicitudDTO() {
+	public SolicitudUserDTO() {
 		
 	}  
-	public SolicitudDTO(int codigo, String estado, String fechaInicio, String fechaFin, String prioridad,
+	
+
+	public SolicitudUserDTO(int codigo, String estado, String fechaInicio, String fechaFin, String prioridad,
 			String aplicacion, String tipoSolicitud, String categoria) {
 		super();
 		this.codigo = codigo;
@@ -33,7 +34,8 @@ public class SolicitudDTO implements Serializable {
 		this.tipoSolicitud = tipoSolicitud;
 		this.categoria = categoria;
 	}
-	public SolicitudDTO(int codigo, String estado, String fechaInicio, String fechaFin, String prioridad,
+
+	public SolicitudUserDTO(int codigo, String estado, String fechaInicio, String fechaFin, String prioridad,
 			String aplicacion, String tipoSolicitud, String categoria, String solicitud, String solucion) {
 		super();
 		this.codigo = codigo;
@@ -51,7 +53,7 @@ public class SolicitudDTO implements Serializable {
 	
 	
 
-	public SolicitudDTO(int codigo, String estado, String fechaInicio, String fechaFin, String prioridad,
+	public SolicitudUserDTO(int codigo, String estado, String fechaInicio, String fechaFin, String prioridad,
 			String aplicacion, String tipoSolicitud, String categoria, String solicitud, String solucion,
 			String reg_nombres, String reg_apellidos) {
 		super();

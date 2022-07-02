@@ -1,6 +1,8 @@
 package com.cliente.model.DTO;
 
-public class AutenticacionResponseDTO {
+import java.io.Serializable;
+
+public class AutenticacionResponseDTO implements Serializable {
 	
 	private String codigo;
 	private String mensaje;

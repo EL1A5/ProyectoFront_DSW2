@@ -1,9 +1,5 @@
 package com.cliente.web.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.cliente.model.DTO.CategoriaDTO;
 import com.cliente.model.DTO.RptaServerDTO;
 import com.cliente.model.DTO.SolicitudDTO;
 import com.cliente.model.DTO.SolicitudUsuarioDTO;
 import com.cliente.service.AplicacionService;
 import com.cliente.service.CategoriaService;
+import com.cliente.service.PersonaService;
 import com.cliente.service.SolicitudService;
 import com.cliente.service.TipoSolicitudService;
 
@@ -38,6 +33,8 @@ public class SolicitudWebController {
 	
 	@Autowired
 	CategoriaService serviceCategoria;
+	
+	
 	
 	@PostMapping("/solicitudes/registrarAtencion")
 	public String registrarAtencion(@ModelAttribute SolicitudDTO objSolicitud) {
@@ -73,7 +70,7 @@ public class SolicitudWebController {
 		return "principal";
 	}
 	
-	@PostMapping("/solicitudes/consultarMisSolicitudes")
+	@GetMapping("/solicitudes/consultarMisSolicitudes")
 	public String consultar_mis_solicitudes(HttpServletRequest request, Model model) {
 		System.out.println("Estado : " + request.getParameter("cboEstado") );
 		System.out.println("Aplicativo : " + request.getParameter("cboAplicacion") );
@@ -95,6 +92,10 @@ public class SolicitudWebController {
 		model.addAttribute("solicitud", new SolicitudDTO());
 		return "/core/registroSolicitud";
 	}
+	
+	
+	
+	
 	
 	
 
